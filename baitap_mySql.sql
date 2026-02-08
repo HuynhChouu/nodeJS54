@@ -341,7 +341,7 @@ CREATE TABLE IF NOT EXISTS `Rates` (
 	
 	FOREIGN KEY (`userId`) REFERENCES `Users`(`userId`),
 	FOREIGN KEY (`resId`) REFERENCES `Restaurants`(`resId`)
-)
+);
 
 INSERT INTO `Rates` (`userId`, `resId`, `amount`, `dateRate`) VALUES
 (1,1,5,'2026-01-03 10:00:00'),
