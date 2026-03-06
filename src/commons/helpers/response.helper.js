@@ -15,7 +15,7 @@ export const responseError = (message = "Internal Server Error", statusCode = st
             status: "error",
             statusCode: statusCode,
             message: message,
-            stack: stack, // chỉ nên show ở môi trường dev
+            stack: stack,
             dateTime: new Date()
     }
 }

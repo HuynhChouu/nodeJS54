@@ -13,6 +13,4 @@ export const appErrors = (err, req, res, next) => {
 
         const response = responseError(err?.message, err?.code, err?.stack )
         res.status(response.statusCode).json(response)
-        // err?.message: câu thông báo lỗi
-        // err?.stack: lưu vết lỗi (dòng code xảy ra lỗi)
     }
