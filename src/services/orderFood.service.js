@@ -1,11 +1,7 @@
 import { prisma } from "../commons/prisma/connect.prisma.js";
 
 export const orderFoodService = {
-    // async findAll(req) {
-
-    // },
-
-    async update(req) {
+   async update(req) {
         const { userId, foodId } = req.query
         const { amount } = req.body
 
