@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/commons/prisma/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Foods {
+  foodId   Int      @id @default(autoincrement())
+  foodName String?  @db.VarChar(255)
+  image    String?  @db.VarChar(255)
+  price    Float?   @db.Float
+  desc     String?  @default("Chua co thong tin") @db.VarChar(255)
+  Orders   Orders[]
+}
+
+model Likes {
+  userId      Int
+  resId       Int
+  dateLike    DateTime?   @db.DateTime(0)
+  isLike      Boolean     @default(true)
+  comment     String?     @db.VarChar(255)
+  dateComment DateTime?   @default(now()) @db.DateTime(0)
+  Users       Users       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "Likes_ibfk_1")
+  Restaurants Restaurants @relation(fields: [resId], references: [resId], onDelete: NoAction, onUpdate: NoAction, map: "Likes_ibfk_2")
+
+  @@id([userId, resId])
+  @@index([resId], map: "resId")
+}
+
+model Orders {
+  userId    Int?
+  foodId    Int?
+  amount    Int?
+  code      String?   @db.VarChar(255)
+  arrSubId  String?   @db.VarChar(255)
+  id        Int       @id @default(autoincrement())
+  dateOrder DateTime? @default(now()) @db.DateTime(0)
+  Users     Users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "Orders_ibfk_1")
+  Foods     Foods?    @relation(fields: [foodId], references: [foodId], onDelete: NoAction, onUpdate: NoAction, map: "Orders_ibfk_2")
+
+  @@unique([userId, foodId], map: "userId")
+  @@index([foodId], map: "foodId")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Rates {
+  userId      Int?
+  resId       Int?
+  amount      Int?
+  dateRate    DateTime?    @db.DateTime(0)
+  id          Int          @id @default(autoincrement())
+  Users       Users?       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "Rates_ibfk_1")
+  Restaurants Restaurants? @relation(fields: [resId], references: [resId], onDelete: NoAction, onUpdate: NoAction, map: "Rates_ibfk_2")
+
+  @@index([resId], map: "resId")
+  @@index([userId], map: "userId")
+}
+
+model Restaurants {
+  resId   Int     @id @default(autoincrement())
+  resName String? @db.VarChar(255)
+  image   String? @db.VarChar(255)
+  desc    String? @default("Chua co thong tin") @db.VarChar(255)
+  Likes   Likes[]
+  Rates   Rates[]
+}
+
+model Users {
+  userId   Int      @id @default(autoincrement())
+  fullName String?  @db.VarChar(255)
+  email    String?  @db.VarChar(255)
+  password String?  @db.VarChar(255)
+  Likes    Likes[]
+  Orders   Orders[]
+  Rates    Rates[]
+}
