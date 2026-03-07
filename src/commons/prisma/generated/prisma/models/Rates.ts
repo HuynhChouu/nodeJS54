@@ -46,6 +46,7 @@ export type RatesMinAggregateOutputType = {
   amount: number | null
   dateRate: Date | null
   id: number | null
+  isRate: boolean | null
 }
 
 export type RatesMaxAggregateOutputType = {
@@ -54,6 +55,7 @@ export type RatesMaxAggregateOutputType = {
   amount: number | null
   dateRate: Date | null
   id: number | null
+  isRate: boolean | null
 }
 
 export type RatesCountAggregateOutputType = {
@@ -62,6 +64,7 @@ export type RatesCountAggregateOutputType = {
   amount: number
   dateRate: number
   id: number
+  isRate: number
   _all: number
 }
 
@@ -86,6 +89,7 @@ export type RatesMinAggregateInputType = {
   amount?: true
   dateRate?: true
   id?: true
+  isRate?: true
 }
 
 export type RatesMaxAggregateInputType = {
@@ -94,6 +98,7 @@ export type RatesMaxAggregateInputType = {
   amount?: true
   dateRate?: true
   id?: true
+  isRate?: true
 }
 
 export type RatesCountAggregateInputType = {
@@ -102,6 +107,7 @@ export type RatesCountAggregateInputType = {
   amount?: true
   dateRate?: true
   id?: true
+  isRate?: true
   _all?: true
 }
 
@@ -197,6 +203,7 @@ export type RatesGroupByOutputType = {
   amount: number | null
   dateRate: Date | null
   id: number
+  isRate: boolean
   _count: RatesCountAggregateOutputType | null
   _avg: RatesAvgAggregateOutputType | null
   _sum: RatesSumAggregateOutputType | null
@@ -228,6 +235,7 @@ export type RatesWhereInput = {
   amount?: Prisma.IntNullableFilter<"Rates"> | number | null
   dateRate?: Prisma.DateTimeNullableFilter<"Rates"> | Date | string | null
   id?: Prisma.IntFilter<"Rates"> | number
+  isRate?: Prisma.BoolFilter<"Rates"> | boolean
   Users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.UsersWhereInput> | null
   Restaurants?: Prisma.XOR<Prisma.RestaurantsNullableScalarRelationFilter, Prisma.RestaurantsWhereInput> | null
 }
@@ -238,12 +246,14 @@ export type RatesOrderByWithRelationInput = {
   amount?: Prisma.SortOrderInput | Prisma.SortOrder
   dateRate?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
+  isRate?: Prisma.SortOrder
   Users?: Prisma.UsersOrderByWithRelationInput
   Restaurants?: Prisma.RestaurantsOrderByWithRelationInput
 }
 
 export type RatesWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  userId_resId?: Prisma.RatesUserIdResIdCompoundUniqueInput
   AND?: Prisma.RatesWhereInput | Prisma.RatesWhereInput[]
   OR?: Prisma.RatesWhereInput[]
   NOT?: Prisma.RatesWhereInput | Prisma.RatesWhereInput[]
@@ -251,9 +261,10 @@ export type RatesWhereUniqueInput = Prisma.AtLeast<{
   resId?: Prisma.IntNullableFilter<"Rates"> | number | null
   amount?: Prisma.IntNullableFilter<"Rates"> | number | null
   dateRate?: Prisma.DateTimeNullableFilter<"Rates"> | Date | string | null
+  isRate?: Prisma.BoolFilter<"Rates"> | boolean
   Users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.UsersWhereInput> | null
   Restaurants?: Prisma.XOR<Prisma.RestaurantsNullableScalarRelationFilter, Prisma.RestaurantsWhereInput> | null
-}, "id">
+}, "id" | "userId_resId">
 
 export type RatesOrderByWithAggregationInput = {
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -261,6 +272,7 @@ export type RatesOrderByWithAggregationInput = {
   amount?: Prisma.SortOrderInput | Prisma.SortOrder
   dateRate?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
+  isRate?: Prisma.SortOrder
   _count?: Prisma.RatesCountOrderByAggregateInput
   _avg?: Prisma.RatesAvgOrderByAggregateInput
   _max?: Prisma.RatesMaxOrderByAggregateInput
@@ -277,11 +289,13 @@ export type RatesScalarWhereWithAggregatesInput = {
   amount?: Prisma.IntNullableWithAggregatesFilter<"Rates"> | number | null
   dateRate?: Prisma.DateTimeNullableWithAggregatesFilter<"Rates"> | Date | string | null
   id?: Prisma.IntWithAggregatesFilter<"Rates"> | number
+  isRate?: Prisma.BoolWithAggregatesFilter<"Rates"> | boolean
 }
 
 export type RatesCreateInput = {
   amount?: number | null
   dateRate?: Date | string | null
+  isRate?: boolean
   Users?: Prisma.UsersCreateNestedOneWithoutRatesInput
   Restaurants?: Prisma.RestaurantsCreateNestedOneWithoutRatesInput
 }
@@ -292,11 +306,13 @@ export type RatesUncheckedCreateInput = {
   amount?: number | null
   dateRate?: Date | string | null
   id?: number
+  isRate?: boolean
 }
 
 export type RatesUpdateInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Users?: Prisma.UsersUpdateOneWithoutRatesNestedInput
   Restaurants?: Prisma.RestaurantsUpdateOneWithoutRatesNestedInput
 }
@@ -307,6 +323,7 @@ export type RatesUncheckedUpdateInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type RatesCreateManyInput = {
@@ -315,11 +332,13 @@ export type RatesCreateManyInput = {
   amount?: number | null
   dateRate?: Date | string | null
   id?: number
+  isRate?: boolean
 }
 
 export type RatesUpdateManyMutationInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type RatesUncheckedUpdateManyInput = {
@@ -328,6 +347,12 @@ export type RatesUncheckedUpdateManyInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type RatesUserIdResIdCompoundUniqueInput = {
+  userId: number
+  resId: number
 }
 
 export type RatesCountOrderByAggregateInput = {
@@ -336,6 +361,7 @@ export type RatesCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   dateRate?: Prisma.SortOrder
   id?: Prisma.SortOrder
+  isRate?: Prisma.SortOrder
 }
 
 export type RatesAvgOrderByAggregateInput = {
@@ -351,6 +377,7 @@ export type RatesMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   dateRate?: Prisma.SortOrder
   id?: Prisma.SortOrder
+  isRate?: Prisma.SortOrder
 }
 
 export type RatesMinOrderByAggregateInput = {
@@ -359,6 +386,7 @@ export type RatesMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   dateRate?: Prisma.SortOrder
   id?: Prisma.SortOrder
+  isRate?: Prisma.SortOrder
 }
 
 export type RatesSumOrderByAggregateInput = {
@@ -465,6 +493,7 @@ export type RatesUncheckedUpdateManyWithoutUsersNestedInput = {
 export type RatesCreateWithoutRestaurantsInput = {
   amount?: number | null
   dateRate?: Date | string | null
+  isRate?: boolean
   Users?: Prisma.UsersCreateNestedOneWithoutRatesInput
 }
 
@@ -473,6 +502,7 @@ export type RatesUncheckedCreateWithoutRestaurantsInput = {
   amount?: number | null
   dateRate?: Date | string | null
   id?: number
+  isRate?: boolean
 }
 
 export type RatesCreateOrConnectWithoutRestaurantsInput = {
@@ -510,11 +540,13 @@ export type RatesScalarWhereInput = {
   amount?: Prisma.IntNullableFilter<"Rates"> | number | null
   dateRate?: Prisma.DateTimeNullableFilter<"Rates"> | Date | string | null
   id?: Prisma.IntFilter<"Rates"> | number
+  isRate?: Prisma.BoolFilter<"Rates"> | boolean
 }
 
 export type RatesCreateWithoutUsersInput = {
   amount?: number | null
   dateRate?: Date | string | null
+  isRate?: boolean
   Restaurants?: Prisma.RestaurantsCreateNestedOneWithoutRatesInput
 }
 
@@ -523,6 +555,7 @@ export type RatesUncheckedCreateWithoutUsersInput = {
   amount?: number | null
   dateRate?: Date | string | null
   id?: number
+  isRate?: boolean
 }
 
 export type RatesCreateOrConnectWithoutUsersInput = {
@@ -556,11 +589,13 @@ export type RatesCreateManyRestaurantsInput = {
   amount?: number | null
   dateRate?: Date | string | null
   id?: number
+  isRate?: boolean
 }
 
 export type RatesUpdateWithoutRestaurantsInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Users?: Prisma.UsersUpdateOneWithoutRatesNestedInput
 }
 
@@ -569,6 +604,7 @@ export type RatesUncheckedUpdateWithoutRestaurantsInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type RatesUncheckedUpdateManyWithoutRestaurantsInput = {
@@ -576,6 +612,7 @@ export type RatesUncheckedUpdateManyWithoutRestaurantsInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type RatesCreateManyUsersInput = {
@@ -583,11 +620,13 @@ export type RatesCreateManyUsersInput = {
   amount?: number | null
   dateRate?: Date | string | null
   id?: number
+  isRate?: boolean
 }
 
 export type RatesUpdateWithoutUsersInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   Restaurants?: Prisma.RestaurantsUpdateOneWithoutRatesNestedInput
 }
 
@@ -596,6 +635,7 @@ export type RatesUncheckedUpdateWithoutUsersInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type RatesUncheckedUpdateManyWithoutUsersInput = {
@@ -603,6 +643,7 @@ export type RatesUncheckedUpdateManyWithoutUsersInput = {
   amount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   dateRate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  isRate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -613,6 +654,7 @@ export type RatesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   amount?: boolean
   dateRate?: boolean
   id?: boolean
+  isRate?: boolean
   Users?: boolean | Prisma.Rates$UsersArgs<ExtArgs>
   Restaurants?: boolean | Prisma.Rates$RestaurantsArgs<ExtArgs>
 }, ExtArgs["result"]["rates"]>
@@ -625,9 +667,10 @@ export type RatesSelectScalar = {
   amount?: boolean
   dateRate?: boolean
   id?: boolean
+  isRate?: boolean
 }
 
-export type RatesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "resId" | "amount" | "dateRate" | "id", ExtArgs["result"]["rates"]>
+export type RatesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "resId" | "amount" | "dateRate" | "id" | "isRate", ExtArgs["result"]["rates"]>
 export type RatesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Users?: boolean | Prisma.Rates$UsersArgs<ExtArgs>
   Restaurants?: boolean | Prisma.Rates$RestaurantsArgs<ExtArgs>
@@ -645,6 +688,7 @@ export type $RatesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     amount: number | null
     dateRate: Date | null
     id: number
+    isRate: boolean
   }, ExtArgs["result"]["rates"]>
   composites: {}
 }
@@ -1021,6 +1065,7 @@ export interface RatesFieldRefs {
   readonly amount: Prisma.FieldRef<"Rates", 'Int'>
   readonly dateRate: Prisma.FieldRef<"Rates", 'DateTime'>
   readonly id: Prisma.FieldRef<"Rates", 'Int'>
+  readonly isRate: Prisma.FieldRef<"Rates", 'Boolean'>
 }
     
 

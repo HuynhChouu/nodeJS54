@@ -1,19 +1,13 @@
 import { prisma } from "../commons/prisma/connect.prisma.js";
 
 export const orderFoodService = {
-   async update(req) {
-        const { userId, foodId } = req.query
-        const { amount } = req.body
+   async create(req) {
+        // const { userId, foodId } = req.query
+        const { userId, foodId, amount } = req.body
 
         const code = `ORD${userId}${foodId}`
 
-        const isOdrder = await prisma.orders.update({
-            where: {
-              userId_foodId: {
-                userId: Number(userId),
-                foodId: Number(foodId)
-            }
-            },
+        const isOdrder = await prisma.orders.create({
             data: {
                 userId: Number(userId),
                 foodId: Number(foodId),

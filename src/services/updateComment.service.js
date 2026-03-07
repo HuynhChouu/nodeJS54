@@ -2,30 +2,49 @@ import { prisma } from "../commons/prisma/connect.prisma.js";
 
 export const updateCommentService = {
   async findAll(req) {
-    const { userId, resId } = req.query
+    const { userId, resId } = req.query;
+    
 
-    const listCommentPrismaPromise = prisma.likes.findMany({
+    const listRatePrismaPromise = prisma.rates.findMany({
       where: {
         ...(userId && { userId: Number(userId) }),
         ...(resId && { resId: Number(resId) }),
-        comment: {
-            not: null,
-        },
+        isRate: true,
       },
     });
 
-    const [listCommentPrisma] = await Promise.all([listCommentPrismaPromise]);
+    const [listRatePrisma] = await Promise.all([listRatePrismaPromise]);
 
     return {
-      items: listCommentPrisma,
+      items: listRatePrisma,
     };
   },
 
   async update(req) {
     const { userId, resId } = req.query;
-    const { comment } = req.body;
 
-    const isUpdated = await prisma.likes.update({
+    const rating = await prisma.rates.findUnique({
+      where: {
+        userId_resId: {
+          userId: Number(userId),
+          resId: Number(resId),
+        },
+      },
+    });
+
+    if (!rating) {
+      await prisma.rates.create({
+        data: {
+          userId: Number(userId),
+          resId: Number(resId),
+          dateRate: new Date(),
+          isRate: true,
+        },
+      });
+      return { message: "Đánh giá thành công" };
+    }
+
+    const updateRating = await prisma.rates.update({
       where: {
         userId_resId: {
           userId: Number(userId),
@@ -33,11 +52,13 @@ export const updateCommentService = {
         },
       },
       data: {
-        dateComment: new Date(),
-        comment: comment,
+        userId: Number(userId),
+        resId: Number(resId),
+        // amout: Number(amount),
+        dateRate: new Date(),
+        isRate: !rating.isRate,
       },
     });
-
-    return isUpdated;
+    return updateRating;
   },
 };

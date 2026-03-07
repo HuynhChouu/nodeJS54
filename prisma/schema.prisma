@@ -52,11 +52,12 @@ model Rates {
   amount      Int?
   dateRate    DateTime?    @db.DateTime(0)
   id          Int          @id @default(autoincrement())
+  isRate      Boolean      @default(true)
   Users       Users?       @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "Rates_ibfk_1")
   Restaurants Restaurants? @relation(fields: [resId], references: [resId], onDelete: NoAction, onUpdate: NoAction, map: "Rates_ibfk_2")
 
+  @@unique([userId, resId], map: "userId")
   @@index([resId], map: "resId")
-  @@index([userId], map: "userId")
 }
 
 model Restaurants {

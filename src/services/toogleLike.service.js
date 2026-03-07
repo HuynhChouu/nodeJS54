@@ -28,8 +28,7 @@ export const toogleLikeService = {
 
   async update(req) {
     const { userId, resId } = req.query;
-    const { comment } = req.body;
-
+   
     const like = await prisma.likes.findUnique({
       where: {
         userId_resId: {

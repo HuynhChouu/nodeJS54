@@ -885,7 +885,8 @@ export const RatesScalarFieldEnum = {
   resId: 'resId',
   amount: 'amount',
   dateRate: 'dateRate',
-  id: 'id'
+  id: 'id',
+  isRate: 'isRate'
 } as const
 
 export type RatesScalarFieldEnum = (typeof RatesScalarFieldEnum)[keyof typeof RatesScalarFieldEnum]
