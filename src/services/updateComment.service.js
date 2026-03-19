@@ -4,7 +4,6 @@ export const updateCommentService = {
   async findAll(req) {
     const { userId, resId } = req.query;
     
-
     const listRatePrismaPromise = prisma.rates.findMany({
       where: {
         ...(userId && { userId: Number(userId) }),

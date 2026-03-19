@@ -38,7 +38,7 @@ export const buildQueryPrisma = (req) => {
 
         const where = {
             ...filters,
-            isDeleted: false   
+            // isDeleted: false   
         };
 
         return {
